@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Group3WebAPI.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Group3WebAPIContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Group3WebAPIContext") ?? throw new InvalidOperationException("Connection string 'Group3WebAPIContext' not found.")));
 
 // Add services to the container.
 
