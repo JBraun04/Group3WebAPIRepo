@@ -15,5 +15,7 @@ namespace Group3WebAPI.Data
         }
 
         public DbSet<Group3WebAPI.Models.Breakfast> Breakfast { get; set; } = default!;
+        public DbSet<Group3WebAPI.Models.Hobby> Hobby { get; set; } = default!;
+
     }
 }
