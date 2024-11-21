@@ -22,6 +22,31 @@ namespace Group3WebAPI.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Group3WebAPI.Models.TeamMember", b =>
+
+            {
+                b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                b.Property<int>("Age");
+
+                b.Property<string>("First_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("Last_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.ToTable("TeamMember");
+
+            });
             modelBuilder.Entity("Group3WebAPI.Models.Breakfast", b =>
                 {
                     b.Property<int>("Id")
@@ -30,7 +55,7 @@ namespace Group3WebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
+                    b.Property<int>("Age");
                     b.Property<string>("drink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -42,12 +67,12 @@ namespace Group3WebAPI.Migrations
                     b.Property<int>("preparationTime")
                         .HasColumnType("int");
 
-                    b.Property<string>("First_name")
+                    b.Property<string>("First_name");
                     b.Property<string>("side")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Last_name")
+                    b.Property<string>("Last_name");
                     b.HasKey("Id");
 
                     b.ToTable("Breakfast");
@@ -65,7 +90,7 @@ namespace Group3WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Year")
+              
                     b.Property<int>("length")
                         .HasColumnType("int");
 
@@ -78,7 +103,7 @@ namespace Group3WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TeamMember");
+                   
                     b.ToTable("Movie");
                 });
 #pragma warning restore 612, 618
