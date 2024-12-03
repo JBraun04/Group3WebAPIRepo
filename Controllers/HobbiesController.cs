@@ -23,86 +23,49 @@ namespace Group3WebAPI.Controllers
 
         // GET: api/Hobbies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hobby>>> GetHobby()
-        {
-            return await _context.Hobby.ToListAsync();
+        public IActionResult GetHobbies() {
+            return Ok(_context.Hobby.ToList());
         }
-
-        // GET: api/Hobbies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hobby>> GetHobby(int id)
-        {
-            var hobby = await _context.Hobby.FindAsync(id);
-
-            if (hobby == null)
-            {
+        public IActionResult GetHobby(int id) {
+            Hobby hobby = _context.Hobby.Find(id);
+            if (hobby == null) {
                 return NotFound();
             }
-
-            return hobby;
+            return Ok(hobby);
         }
-
-        // PUT: api/Hobbies/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHobby(int id, Hobby hobby)
-        {
-            if (id != hobby.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(hobby).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HobbyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Hobbies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Hobby>> PostHobby(Hobby hobby)
-        {
+        public IActionResult PostHobby(Hobby hobby) {
             _context.Hobby.Add(hobby);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHobby", new { id = hobby.Id }, hobby);
+            _context.SaveChanges();
+            return Ok();
         }
-
-        // DELETE: api/Hobbies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHobby(int id)
-        {
-            var hobby = await _context.Hobby.FindAsync(id);
-            if (hobby == null)
-            {
+        public IActionResult DeleteHobby(int id) {
+            Hobby hobby = _context.Hobby.Find(id);
+            if (hobby == null) {
                 return NotFound();
             }
-
-            _context.Hobby.Remove(hobby);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            try {
+                _context.Hobby.Remove(hobby);
+                _context.SaveChanges();
+            }
+            catch (Exception ex) {
+                return NotFound();
+            }
+            return Ok();
         }
 
-        private bool HobbyExists(int id)
-        {
-            return _context.Hobby.Any(e => e.Id == id);
+        [HttpPut]
+        public IActionResult PutHobby(Hobby hobby) {
+            try {
+                _context.Entry(hobby).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception ex) {
+                return NotFound();
+            }
+            return Ok();
         }
     }
 }
