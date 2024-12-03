@@ -16,11 +16,37 @@ namespace Group3WebAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Group3WebAPI.Models.TeamMember", b =>
+
+            {
+                b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                b.Property<int>("Age");
+
+                b.Property<string>("First_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("Last_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.ToTable("TeamMember");
+
+            });
             modelBuilder.Entity("Group3WebAPI.Models.Breakfast", b =>
                 {
                     b.Property<int>("Id")
@@ -29,6 +55,7 @@ namespace Group3WebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Age");
                     b.Property<string>("drink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,40 +67,15 @@ namespace Group3WebAPI.Migrations
                     b.Property<int>("preparationTime")
                         .HasColumnType("int");
 
+                    b.Property<string>("First_name");
                     b.Property<string>("side")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Last_name");
                     b.HasKey("Id");
 
                     b.ToTable("Breakfast");
-                });
-
-            modelBuilder.Entity("Group3WebAPI.Models.Hobby", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<float>("avgProjCost")
-                        .HasColumnType("real");
-
-                    b.Property<string>("hobbyDesc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("hobbyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("hoursPerWeek")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Hobby");
                 });
 
             modelBuilder.Entity("Group3WebAPI.Models.Movie", b =>
@@ -88,6 +90,7 @@ namespace Group3WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+              
                     b.Property<int>("length")
                         .HasColumnType("int");
 
@@ -100,35 +103,8 @@ namespace Group3WebAPI.Migrations
 
                     b.HasKey("Id");
 
+                   
                     b.ToTable("Movie");
-                });
-
-            modelBuilder.Entity("Group3WebAPI.Models.TeamMember", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("First_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Last_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Year")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TeamMember");
                 });
 #pragma warning restore 612, 618
         }
