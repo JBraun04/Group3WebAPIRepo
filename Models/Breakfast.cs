@@ -14,12 +14,11 @@
 
         public Breakfast() { }
 
-        public Breakfast(int Id, string mainCourse, string side, string drink, int preparationTime) 
+        public Breakfast(int Id, string mainCourse, string side, int preparationTime) 
         {
             this.Id = Id;
             this.mainCourse = mainCourse;
             this.side = side;
-            this.drink = drink;
             this.preparationTime = preparationTime;
         }
     }
