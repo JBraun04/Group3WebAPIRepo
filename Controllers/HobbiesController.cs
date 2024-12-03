@@ -23,49 +23,70 @@ namespace Group3WebAPI.Controllers
 
         // GET: api/Hobbies
         [HttpGet]
-        public IActionResult GetHobbies() {
-            return Ok(_context.Hobby.ToList());
-        }
-        [HttpGet("{id}")]
-        public IActionResult GetHobby(int id) {
-            Hobby hobby = _context.Hobby.Find(id);
-            if (hobby == null) {
-                return NotFound();
-            }
-            return Ok(hobby);
-        }
-        [HttpPost]
-        public IActionResult PostHobby(Hobby hobby) {
-            _context.Hobby.Add(hobby);
-            _context.SaveChanges();
-            return Ok();
-        }
-        [HttpDelete("{id}")]
-        public IActionResult DeleteHobby(int id) {
-            Hobby hobby = _context.Hobby.Find(id);
-            if (hobby == null) {
-                return NotFound();
-            }
-            try {
-                _context.Hobby.Remove(hobby);
-                _context.SaveChanges();
-            }
-            catch (Exception ex) {
-                return NotFound();
-            }
-            return Ok();
+        public async Task<ActionResult<IEnumerable<Hobby>>> GetHobby() {
+            return await _context.Hobby.ToListAsync();
         }
 
-        [HttpPut]
-        public IActionResult PutHobby(Hobby hobby) {
-            try {
-                _context.Entry(hobby).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            catch (Exception ex) {
+        // GET: api/Hobbies/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Hobby>> GetHobby(int id) {
+            var hobby = await _context.Hobby.FindAsync(id);
+
+            if (hobby == null) {
                 return NotFound();
             }
-            return Ok();
+
+            return hobby;
+        }
+
+        // PUT: api/Hobbies/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutHobby(int id, Hobby hobby) {
+            if (id != hobby.Id) {
+                return BadRequest();
+            }
+
+            _context.Entry(hobby).State = EntityState.Modified;
+
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException) {
+                if (!HobbyExists(id)) {
+                    return NotFound();
+                }
+                else {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/Hobbies
+        [HttpPost]
+        public async Task<ActionResult<Hobby>> PostHobby(Hobby hobby) {
+            _context.Hobby.Add(hobby);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetHobby", new { id = hobby.Id }, hobby);
+        }
+
+        // DELETE: api/Hobbies/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteHobby(int id) {
+            var hobby = await _context.Hobby.FindAsync(id);
+            if (hobby == null) {
+                return NotFound();
+            }
+
+            _context.Hobby.Remove(hobby);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        private bool HobbyExists(int id) {
+            return _context.Hobby.Any(e => e.Id == id);
         }
     }
 }
