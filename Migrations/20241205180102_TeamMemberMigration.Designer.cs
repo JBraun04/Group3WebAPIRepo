@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group3WebAPI.Migrations
 {
     [DbContext(typeof(Group3WebAPIContext))]
-    [Migration("20241205173811_Breakfast")]
-    partial class Breakfast
+    [Migration("20241205180102_TeamMemberMigration")]
+    partial class TeamMemberMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

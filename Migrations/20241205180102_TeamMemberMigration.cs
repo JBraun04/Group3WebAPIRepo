@@ -5,7 +5,7 @@
 namespace Group3WebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Breakfast : Migration
+    public partial class TeamMemberMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
