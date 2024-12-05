@@ -21,22 +21,24 @@ namespace Group3WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Hobbies
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hobby>>> GetHobby() {
-            return await _context.Hobby.ToListAsync();
-        }
-
-        // GET: api/Hobbies/5
+        // GET: api/Hobbies/#
         [HttpGet("{id}")]
         public async Task<ActionResult<Hobby>> GetHobby(int id) {
-            var hobby = await _context.Hobby.FindAsync(id);
 
-            if (hobby == null) {
-                return NotFound();
+            if (id == 0 || id == null) {
+                var hobby = await _context.Hobby.Take(5).ToListAsync();
+
+                return Ok(hobby);
             }
+            else {
+                var hobby = await _context.Hobby.FindAsync(id);
 
-            return hobby;
+                if (hobby == null) {
+                    return NotFound();
+                }
+
+                return Ok(hobby);
+            }
         }
 
         // PUT: api/Hobbies/5
