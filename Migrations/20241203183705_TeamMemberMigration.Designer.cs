@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group3WebAPI.Migrations
 {
     [DbContext(typeof(Group3WebAPIContext))]
-    [Migration("20241119183143_MoviesData")]
-    partial class MoviesData
+    [Migration("20241203183705_TeamMemberMigration")]
+    partial class TeamMemberMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,33 @@ namespace Group3WebAPI.Migrations
                     b.ToTable("Breakfast");
                 });
 
+            modelBuilder.Entity("Group3WebAPI.Models.Hobby", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<float>("avgProjCost")
+                        .HasColumnType("real");
+
+                    b.Property<string>("hobbyDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("hobbyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("hoursPerWeek")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hobby");
+                });
+
             modelBuilder.Entity("Group3WebAPI.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -77,6 +104,34 @@ namespace Group3WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movie");
+                });
+
+            modelBuilder.Entity("Group3WebAPI.Models.TeamMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("First_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Last_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TeamMember");
                 });
 #pragma warning restore 612, 618
         }
