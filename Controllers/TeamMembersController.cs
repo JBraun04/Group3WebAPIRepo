@@ -28,14 +28,25 @@ namespace Group3WebAPI.Controllers
             return Ok(_context.TeamMember.ToList());
         }
         [HttpGet("{id}")]
-        public IActionResult  GetTeamMember(int id)
+        public async Task<ActionResult<TeamMember>> GetTeamMember(int id)
         {
-            TeamMember teammember = _context.TeamMember.Find(id);
-            if (teammember == null)
+            if (id == 0 || id == null)
             {
-                return NotFound();
+                var teammember = await _context.TeamMember.Take(5).ToListAsync();
+
+                return Ok(teammember);
             }
-            return Ok(teammember);
+            else
+            {
+                var teammember = await _context.TeamMember.FindAsync(id);
+
+                if (teammember == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(teammember);
+            }
         }
         [HttpPost]
         public IActionResult PostTeamMember(TeamMember teamMember)

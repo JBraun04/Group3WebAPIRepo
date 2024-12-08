@@ -21,12 +21,6 @@ namespace Group3WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Breakfasts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Breakfast>>> GetBreakfast()
-        {
-            return await _context.Breakfast.ToListAsync();
-        }
 
         // GET: api/Breakfasts/5
         [HttpGet("{id}")]
